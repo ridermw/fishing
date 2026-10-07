@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Driftmoor Cove · an HD-2D fishing game</title>
+  <meta name="description" content="A cozy HD-2D fishing game that runs in your browser. Every texture, sprite and sound is generated in code.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🎣</text></svg>">
+  <script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  } }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="hud">
+    <div class="panel hudbox">
+      <div id="clock">☀ Day 1 · 07:00</div>
+      <div class="row"><span class="coin"></span><span id="coins">0</span> <span class="sep">·</span> Bag <span id="bag">0</span> <span class="sep">·</span> <span id="rodName">Bamboo Rod</span></div>
+    </div>
+  </div>
+  <div id="buttons">
+    <button id="btnJournal" class="panel btn" title="Journal (J)">Journal</button>
+    <button id="btnSound" class="panel btn" title="Sound (M)">♪ on</button>
+    <button id="btnHelp" class="panel btn" title="Help (H)">?</button>
+  </div>
+
+  <div id="prompt" class="bubble" hidden></div>
+  <div id="exclaim" hidden>!</div>
+  <div id="toast"></div>
+
+  <div id="power" class="panel" hidden>
+    <div class="label">POWER</div>
+    <div class="bar"><div id="powerFill"></div></div>
+  </div>
+
+  <div id="reel" class="panel" hidden>
+    <div id="reelStatus">Calm - reel it in!</div>
+    <div class="meter"><span>Tension</span><div class="bar tension"><div id="tensionFill"></div><i class="redline"></i></div></div>
+    <div class="meter"><span>Catch</span><div class="bar progress"><div id="progressFill"></div></div></div>
+    <div class="hint">Hold <b>Space</b> to reel · let go when it runs</div>
+  </div>
+
+  <div id="dialog" class="panel" hidden>
+    <div id="dlgName"></div>
+    <div id="dlgText"></div>
+    <div id="dlgChoices"></div>
+    <div id="dlgMore">▼</div>
+  </div>
+
+  <div id="catch" class="panel" hidden>
+    <div class="caught">You caught a</div>
+    <img id="catchImg" alt="">
+    <div id="catchName"></div>
+    <div id="catchRarity" class="rarity"></div>
+    <div class="stats"><span id="catchSize"></span> · <span id="catchValue"></span></div>
+    <div id="catchNew" hidden>NEW!</div>
+    <div class="hint">Press <b>Space</b></div>
+  </div>
+
+  <div id="journal" class="panel modal" hidden>
+    <button class="close" data-close="journal">✕</button>
+    <h2>Angler's Journal</h2>
+    <div id="jStats"></div>
+    <div id="jGrid"></div>
+  </div>
+
+  <div id="help" class="panel modal" hidden>
+    <button class="close" data-close="help">✕</button>
+    <h2>How to fish</h2>
+    <ul>
+      <li><b>WASD / Arrows</b>: walk · <b>Shift</b>: run</li>
+      <li>Face the water and <b>hold Space</b> to wind up. Let go to cast.</li>
+      <li>Wait for the <b>!</b>, then press <b>Space</b> right away to hook the fish.</li>
+      <li><b>Hold Space</b> to reel while the fish is calm. When it <b>runs</b>, let go so your line doesn't snap.</li>
+      <li>Fish change with the <b>time of day</b>, the <b>sea or pond</b>, and how <b>deep</b> the water is.</li>
+      <li>Sell your catch to <b>Marla</b> at the market and buy better rods.</li>
+      <li><b>J</b>: journal · <b>M</b>: sound · <b>H</b>: help</li>
+    </ul>
+    <p class="small">Every texture, sprite and sound in this game is generated in code. There are no image or audio files.</p>
+  </div>
+
+  <div id="title">
+    <div class="titlecard">
+      <div class="sub">a little HD-2D fishing game</div>
+      <h1>Driftmoor Cove</h1>
+      <div class="press">Press any key or tap to begin</div>
+    </div>
+  </div>
+
+  <div id="stick" hidden><div id="knob"></div></div>
+  <button id="abtn">A</button>
+
+  <noscript>This game needs JavaScript and WebGL.</noscript>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
